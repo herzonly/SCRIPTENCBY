@@ -1,9 +1,5 @@
-# author : @SamtroOfficial
-# -*- coding: utf-8 -*-
-#
 import os
-import sys
-import fileinput
+import shutil
 
 N = '\033[0m'
 D = '\033[90m'
@@ -34,48 +30,55 @@ banner2 = """
 print banner
 print banner2
 
+def buat_folder():
+    directory = "/storage/emulated/0/SCRIPTENCBY"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 def dekrip():
-   try:
-       sc = raw_input(ask + W + "Script " + G + "> " + W)
-       f = open(sc,'r')
-       filedata = f.read()
-       f.close()
+    try:
+        buat_folder()
+        sc = raw_input(ask + W + "Script " + G + "> " + W)
+        f = open(sc,'r')
+        filedata = f.read()
+        f.close()
 
-       newdata = filedata.replace("eval","echo")
+        newdata = filedata.replace("eval","echo")
 
-       out = raw_input(ask + W + "Output" + G + " > " + W)
-       f = open(out,'w')
-       f.write(newdata)
-       f.close()
+        out = "/storage/emulated/0/SCRIPTENCBY/" + raw_input(ask + W + "Output" + G + " > " + W)
+        f = open(out,'w')
+        f.write(newdata)
+        f.close()
 
-       os.system("touch tes.sh")
-       os.system("bash " + out + " > tes.sh")
-       os.remove(out)
-       os.system("mv -f tes.sh " + out)
-       print (sukses + "DoneMasSamtro..")
+        os.system("touch tes.sh")
+        os.system("bash " + out + " > tes.sh")
+        os.remove(out)
+        os.system("mv -f tes.sh " + out)
+        print (sukses + "DoneMasSamtro..")
 
-   except KeyboardInterrupt:
-       print (eror + " Stopped!")
-   except IOError:
-       print (eror + " File Not Found!")
+    except KeyboardInterrupt:
+        print (eror + " Stopped!")
+    except IOError:
+        print (eror + " File Not Found!")
 
 def enkrip():
-   try:
-       script = raw_input(ask + W + "Script " + G + "> " + W)
-       output = raw_input(ask + W + "Output " + G + "> " + W)
-       os.system("bash-obfuscate " + script + " -o " + output )
-       print (sukses + "DoneMasSamtro..")
-   except KeyboardInterrupt:
-       print (eror + " Stopped!")
-   except IOError:
-       print (eror + " File Not Found!")
+    try:
+        buat_folder()
+        script = raw_input(ask + W + "Script " + G + "> " + W)
+        output = "/storage/emulated/0/SCRIPTENCBY/" + raw_input(ask + W + "Output " + G + "> " + W)
+        os.system("bash-obfuscate " + script + " -o " + output )
+        print (sukses + "DoneMasSamtro..")
+    except KeyboardInterrupt:
+        print (eror + " Stopped!")
+    except IOError:
+        print (eror + " File Not Found!")
 
 
 takok = raw_input(W + "Choose" + G + " > ")
 
 if takok == "1" or takok == "01":
-   enkrip()
+    enkrip()
 elif takok == "2" or takok == "02":
-   dekrip()
+    dekrip()
 else:
-   print (eror + " Wrong input")
+    print (eror + " Wrong input")
